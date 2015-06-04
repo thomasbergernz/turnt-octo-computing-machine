@@ -30,25 +30,30 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-		it('have valid URL', function() { // set test title and loop through fields
+         // set test title and loop through fields
+         // URL is defined
+         // URL not empty
+		it('have valid URL', function() {
 			for(var i = 0; i < allFeeds.length; i++) {
-				expect(allFeeds[i].url).toBeDefined();      // URL is defined
-				expect(allFeeds[i].url.length).not.toBe(0); // URL not empty
+				expect(allFeeds[i].url).toBeDefined();
+				expect(allFeeds[i].url.length).not.toBe(0);
 			}
-        });
+		});
 
         /* Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        it('have valid name', function() { // set test title and loop through fields
+		 // set test title and loop through fields
+		 // name is defined
+		 // name not empty
+		 it('have valid name', function() {
 			for(var i = 0; i < allFeeds.length; i++) {
-				expect(allFeeds[i].name).toBeDefined();      // name is defined
-				expect(allFeeds[i].name.length).not.toBe(0); // name not empty
+				expect(allFeeds[i].name).toBeDefined();
+				expect(allFeeds[i].name.length).not.toBe(0);
 			}
-        });
-    });
-
+		 });
+	});
 
     /* Write a new test suite named "The menu" */
 	describe('The menu', function() { // set header for new test suite to 'The menu'
@@ -57,60 +62,97 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it('is hidden by default', function() { // set test title 
-	        var bodyClass = $('body').attr("class");  // set var to class of <body>
-	        expect(bodyClass).toMatch('menu-hidden'); // match the class 'menu-hidden'
-        });
-        
+
+		 // set test title
+		 // set var to class of <body>
+		 // match the class 'menu-hidden'
+		 it('is hidden by default', function() {
+			var bodyClass = $('body').attr("class");
+			expect(bodyClass).toMatch('menu-hidden');
+		});
+
 		/* Write a test that ensures the menu changes
 		 * visibility when the menu icon is clicked. This test
 		 * should have two expectations: does the menu display when
 		 * clicked and does it hide when clicked again.
 		 */
-        it('switch working', function() { // set test title 
-			$('.menu-icon-link').click(); // simulate click event 
-			expect($('body').hasClass('menu-hidden')).toBe(false); // expect that click toggled class and class is not 'menu-hidden'
-			$('.menu-icon-link').click(); // simulate click event
-			expect($('body').hasClass('menu-hidden')).toBe(true); // expect that click toggled class and class is 'menu-hidden'
-        });
-          
-    });
-    /* Write a new test suite named "Initial Entries" */
+		 // set test title
+		 // simulate click event
+		 // expect that click toggled class and class is not 'menu-hidden'
+		 // simulate click event
+		 // expect that click toggled class and class is 'menu-hidden'
+		 it('switch working', function() {
+			$('.menu-icon-link').click();
+			expect($('body').hasClass('menu-hidden')).toBe(false);
+			$('.menu-icon-link').click();
+			expect($('body').hasClass('menu-hidden')).toBe(true);
+		});
+	});
+	/* Write a new test suite named "Initial Entries" */
 	describe('Initial Entries', function() { // set header for new test suite to 'Initial Entries'
-        /* Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-		beforeEach(function(done) {  // take an optional single argument that should be called when the async work is complete
-			loadFeed(0, function() { // load Feed 0
-				done(); 			 // Jasmine's done() callback function to simulate asynchronous behaviour
+		/* Write a test that ensures when the loadFeed
+		 * function is called and completes its work, there is at least
+		 * a single .entry element within the .feed container.
+		 * Remember, loadFeed() is asynchronous so this test will require
+		 * the use of Jasmine's beforeEach and asynchronous done() function.
+		 */
+		// take an optional single argument that should be called when the async work is complete
+		// load Feed 0
+		// Jasmine's done() callback function to simulate asynchronous behaviour
+		beforeEach(function(done) {
+			loadFeed(0, function() {
+				done();
 			});
 		});
-		
-		it("container has at least one entry", function(done) {   // This spec will not start until the done function is called 
-			expect($(".feed").children().length).not.toBe(0); 	  // in the call to beforeEach above. 
-			done();											  	  // And this spec will not complete until its done is called.
+
+		// This spec will not start until the done function is called
+		// in the call to beforeEach above.
+		// And this spec will not complete until its done is called.
+		it("container has at least one entry", function(done) {
+			expect($(".feed .entry").length).not.toBe(0);
+			done();
 		});
-		
-    });
-    /* Write a new test suite named "New Feed Selection" */
+
+	});
+	/* Write a new test suite named "New Feed Selection" */
 	describe('New Feed Selection', function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-		// compare loadFeed(0) and loadFeed(1)
-		var currentFeedContent = $(".feed").html();
-		beforeEach(function(done) {  // take an optional single argument that should be called when the async work is complete
-			loadFeed(1, function() { // load Feed 1
-				done(); 			 // Jasmine's done() callback function to simulate asynchronous behaviour
+		/* Write a test that ensures when a new feed is loaded
+		 * by the loadFeed function that the content actually changes.
+		 * Remember, loadFeed() is asynchronous.
+		 */
+		// take an optional single argument that should be called when the async work is complete
+		// load Feed 0 and then load Feed 1 to compare
+		// Jasmine's done() callback function to simulate asynchronous behaviour
+
+		/*
+		This test is not assured to run fine on every case.
+		On line 105 you are saving the currentFeedContent variable without having a guarantee about jQuery selector containing something.
+
+		I suggest you to follow these steps:
+
+		1 - Load a feed
+		2 - Use callback from line 1 to save html and load another feed
+		3 - Use callback from line 2 to run done();
+		4 - Compare feeds from line 1 and 2.
+		*/
+
+		var currentFeedContent = function() {
+			if($(".feed").html() != undefined) {
+				return $(".feed").html();
+			}
+		};
+
+		beforeEach(function(done) {
+			loadFeed(1, function() {
+				done();
 			});
 		});
-		it("content actually changes", function(done) {   				// This spec will not start until the done function is called in the call to beforeEach above. 
-			expect(currentFeedContent).not.toMatch($(".feed").html()); 	// test that html is different 
-			done();											  	  		// And this spec will not complete until its done is called.
+		// This spec will not start until the done function is called in the call to beforeEach above.
+		// test that html is different
+		// And this spec will not complete until it's done is called.
+		it("content actually changes", function(done) {
+			expect(currentFeedContent).not.toMatch($(".feed").html());
+			done();
 		});
-    });
+	});
 }());
