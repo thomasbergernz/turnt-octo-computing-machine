@@ -9,11 +9,11 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
-    /* This is our first test suite - a test suite just contains
+   /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
     */
-    describe('RSS Feeds', function() {
+	describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
          * empty. Experiment with this before you get started on
@@ -21,18 +21,18 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        it('are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
-        });
+		it('are defined', function() {
+			expect(allFeeds).toBeDefined();
+			expect(allFeeds.length).not.toBe(0);
+		});
 
         /* Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-         // set test title and loop through fields
-         // URL is defined
-         // URL not empty
+		// set test title and loop through fields
+		// URL is defined
+		// URL not empty
 		it('have valid URL', function() {
 			for(var i = 0; i < allFeeds.length; i++) {
 				expect(allFeeds[i].url).toBeDefined();
@@ -44,10 +44,10 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-		 // set test title and loop through fields
-		 // name is defined
-		 // name not empty
-		 it('have valid name', function() {
+		// set test title and loop through fields
+		// name is defined
+		// name not empty
+		it('have valid name', function() {
 			for(var i = 0; i < allFeeds.length; i++) {
 				expect(allFeeds[i].name).toBeDefined();
 				expect(allFeeds[i].name.length).not.toBe(0);
@@ -55,7 +55,7 @@ $(function() {
 		 });
 	});
 
-    /* Write a new test suite named "The menu" */
+	/* Write a new test suite named "The menu" */
 	describe('The menu', function() { // set header for new test suite to 'The menu'
         /* Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -63,10 +63,10 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
-		 // set test title
-		 // set var to class of <body>
-		 // match the class 'menu-hidden'
-		 it('is hidden by default', function() {
+		// set test title
+		// set var to class of <body>
+		// match the class 'menu-hidden'
+		it('is hidden by default', function() {
 			var bodyClass = $('body').attr("class");
 			expect(bodyClass).toMatch('menu-hidden');
 		});
@@ -76,12 +76,12 @@ $(function() {
 		 * should have two expectations: does the menu display when
 		 * clicked and does it hide when clicked again.
 		 */
-		 // set test title
-		 // simulate click event
-		 // expect that click toggled class and class is not 'menu-hidden'
-		 // simulate click event
-		 // expect that click toggled class and class is 'menu-hidden'
-		 it('switch working', function() {
+		// set test title
+		// simulate click event
+		// expect that click toggled class and class is not 'menu-hidden'
+		// simulate click event
+		// expect that click toggled class and class is 'menu-hidden'
+		it('switch working', function() {
 			$('.menu-icon-link').click();
 			expect($('body').hasClass('menu-hidden')).toBe(false);
 			$('.menu-icon-link').click();
@@ -126,9 +126,9 @@ $(function() {
 
 		beforeEach(function(done) {
 			loadFeed(0, function() {
-  			feedContent = $(".feed").html();
-        loadFeed(1, done);
-  		});
+			feedContent = $(".feed").html();
+				loadFeed(1, done);
+			});
 		});
 		// This spec will not start until the done function is called in the call to beforeEach above.
 		// test that html from feed 0 does not match html from feed 1
