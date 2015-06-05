@@ -136,16 +136,17 @@ $(function() {
 		4 - Compare feeds from line 1 and 2.
 		*/
 
-		var currentFeedContent = function() {
-			if($(".feed").html() != undefined) {
-				return $(".feed").html();
-			}
-		};
+		var currentFeedContent = '';
 
 		beforeEach(function(done) {
-			loadFeed(1, function() {
-				done();
-			});
+			loadFeed(0, function() {
+  			currentFeedContent = function() {
+    			if($(".feed").html() !== undefined) {
+    				return $(".feed").html();
+    		  }
+          loadFeed(1, done);
+			  };
+  		});
 		});
 		// This spec will not start until the done function is called in the call to beforeEach above.
 		// test that html is different
