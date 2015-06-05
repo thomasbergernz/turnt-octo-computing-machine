@@ -120,40 +120,20 @@ $(function() {
 		 * by the loadFeed function that the content actually changes.
 		 * Remember, loadFeed() is asynchronous.
 		 */
-		// take an optional single argument that should be called when the async work is complete
 		// load Feed 0 and then load Feed 1 to compare
 		// Jasmine's done() callback function to simulate asynchronous behaviour
-
-		/*
-		This test is not assured to run fine on every case.
-		On line 105 you are saving the currentFeedContent variable without having a guarantee about jQuery selector containing something.
-
-		I suggest you to follow these steps:
-
-		1 - Load a feed
-		2 - Use callback from line 1 to save html and load another feed
-		3 - Use callback from line 2 to run done();
-		4 - Compare feeds from line 1 and 2.
-		*/
-
-		var currentFeedContent = '';
+		var feedContent = '';
 
 		beforeEach(function(done) {
 			loadFeed(0, function() {
-  			currentFeedContent = function() {
-    			if($(".feed").html() !== undefined) {
-    				return $(".feed").html();
-    		  }
-          loadFeed(1, done);
-			  };
+  			feedContent = $(".feed").html();
+        loadFeed(1, done);
   		});
 		});
 		// This spec will not start until the done function is called in the call to beforeEach above.
-		// test that html is different
-		// And this spec will not complete until it's done is called.
-		it("content actually changes", function(done) {
-			expect(currentFeedContent).not.toMatch($(".feed").html());
-			done();
+		// test that html from feed 0 does not match html from feed 1
+		it("content actually changes", function() {
+			expect(feedContent).not.toMatch($(".feed").html());
 		});
 	});
 }());
